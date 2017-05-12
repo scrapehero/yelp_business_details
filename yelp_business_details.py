@@ -5,6 +5,7 @@ from exceptions import ValueError
 from time import sleep
 import re,urllib
 import argparse
+
 def parse(url):
 	# url = "https://www.yelp.com/biz/frances-san-francisco"
 	response = requests.get(url).text
@@ -24,6 +25,7 @@ def parse(url):
 	raw_health_rating = parser.xpath("//dd[contains(@class,'health-score-description')]//text()")
 	rating_histogram = parser.xpath("//table[contains(@class,'histogram')]//tr[contains(@class,'histogram_row')]")
 	raw_ratings = parser.xpath("//div[contains(@class,'biz-page-header')]//div[contains(@class,'rating')]/@title")
+
 	working_hours = []
 	for hours in hours_table:
 		raw_day = hours.xpath(".//th//text()")
@@ -38,6 +40,7 @@ def parse(url):
 		description_key = ''.join(raw_description_key).strip()
 		description_value = ''.join(raw_description_value).strip()
 		info.append({description_key:description_value})
+
 	ratings_histogram = [] 
 	for ratings in rating_histogram:
 		raw_rating_key = ratings.xpath(".//th//text()")
@@ -55,6 +58,7 @@ def parse(url):
 	reviews = ''.join(raw_reviews).strip()
 	category = ','.join(raw_category)
 	cleaned_ratings = ''.join(raw_ratings).strip()
+
 	if raw_wbsite_link:
 		decoded_raw_website_link = urllib.unquote(raw_wbsite_link[0])
 		website = re.findall("biz_redir\?url=(.*)&website_link",decoded_raw_website_link)[0]
@@ -69,6 +73,7 @@ def parse(url):
 	else:
 		latitude = ''
 		longitude = ''
+
 	if raw_ratings:
 		ratings = re.findall("\d+[.,]?\d+",cleaned_ratings)[0]
 	else:
