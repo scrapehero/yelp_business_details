@@ -8,7 +8,8 @@ import argparse
 
 def parse(url):
 	# url = "https://www.yelp.com/biz/frances-san-francisco"
-	response = requests.get(url).text
+	headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'}
+	response = requests.get(url, headers=headers, verify=False).text
 	parser = html.fromstring(response)
 	print "Parsing the page"
 	raw_name = parser.xpath("//h1[contains(@class,'page-title')]//text()")
