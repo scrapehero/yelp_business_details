@@ -33,6 +33,5 @@ pip install lxml
 python yelp_business_details.py https://www.yelp.com/biz/frances-san-francisco
 ```
 ## Sample Output
-```
-https://github.com/scrapehero/yelp_business_details/blob/master/scraped_data-frances-san-francisco.json
-```
+
+ [Sample Output](https://raw.githubusercontent.com/scrapehero/yelp_business_details/master/scraped_data-frances-san-francisco.json)
